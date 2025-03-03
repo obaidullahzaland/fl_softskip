@@ -919,9 +919,8 @@ class ZSGNet(nn.Module):
         # Added by Zaland
         print(qlens.device)
         print(req_embs.device)
-        print(max_qlen.to(torch.int64).device)
-        qlens = qlens.cpu()
-        req_embs = req_embs.cpu()
+        # qlens = qlens.cpu()
+        # req_embs = req_embs.cpu()
         # Finished Adding 
         req_emb = self.apply_lstm(req_embs, qlens, max_qlen)
 
