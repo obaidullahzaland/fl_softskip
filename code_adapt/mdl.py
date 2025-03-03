@@ -872,6 +872,10 @@ class ZSGNet(nn.Module):
         # T x B x E
         embeds = qtoks.permute(1, 0, 2).contiguous()
         # Packed Embeddings
+        # Code added by Zaland
+        qlens1 = qlens1.cpu()
+
+        # Zaland Code Ended
         packed_embed_inp = pack_padded_sequence(
             embeds, lengths=qlens1, batch_first=False)
         # To ensure no pains with DataParallel
