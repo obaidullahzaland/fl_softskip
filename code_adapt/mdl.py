@@ -889,6 +889,10 @@ class ZSGNet(nn.Module):
         # TODO: Simplify getting the last vector
         masks = (qlens1-1).view(1, -1, 1).expand(max_qlen,
                                                  lstm_out.size(1), lstm_out.size(2))
+        
+        # Code added by Zaland
+        masks = masks.to(lstm_out.device)
+        # Zaland code ended
         print(f"The device for masks is {masks.device}")
         print(f"The device for lstm_out is {lstm_out.device}")
         qvec_sorted = lstm_out.gather(0, masks.long())[0]
