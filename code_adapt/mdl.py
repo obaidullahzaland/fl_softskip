@@ -916,7 +916,9 @@ class ZSGNet(nn.Module):
         qlens = inp['qlens']
         max_qlen = int(qlens.max().item())
         req_embs = inp1[:, :max_qlen, :].contiguous()
-
+        # Added by Zaland
+        qlens = qlens.cpu()
+        # Finished Adding 
         req_emb = self.apply_lstm(req_embs, qlens, max_qlen)
 
         # image blind
