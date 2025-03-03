@@ -919,7 +919,6 @@ class ZSGNet(nn.Module):
         # Added by Zaland
         qlens = qlens.cpu()
         req_embs = req_embs.cpu()
-        max_qlen = max_qlen.cpu()
         # Finished Adding 
         req_emb = self.apply_lstm(req_embs, qlens, max_qlen)
 
