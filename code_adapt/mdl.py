@@ -893,8 +893,8 @@ class ZSGNet(nn.Module):
         # Code added by Zaland
         masks = masks.to(lstm_out.device)
         # Zaland code ended
-        print(f"The device for masks is {masks.device}")
-        print(f"The device for lstm_out is {lstm_out.device}")
+        # print(f"The device for masks is {masks.device}")
+        # print(f"The device for lstm_out is {lstm_out.device}")
         qvec_sorted = lstm_out.gather(0, masks.long())[0]
 
         qvec_out = word_embs.new_zeros(qvec_sorted.shape)
