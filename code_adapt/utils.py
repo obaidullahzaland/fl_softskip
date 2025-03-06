@@ -353,13 +353,13 @@ class Learner:
         return out_list
 
     def validate(self, db: Optional[DataLoader] = None,
-                 mb=None,debug=False) -> List[torch.tensor]:
+                 mb=None,debug=False, client=5) -> List[torch.tensor]:
         "Validation loop, done after every epoch"
         self.mdl.eval()
         if db is None:
             db = self.data.valid_dl
 
-        out_df = pd.read_csv("data/kitchen/csv_dir/val_comp.csv")
+        out_df = pd.read_csv(f"/proj/wasp-nest-cr01/users/x_obaza/fl_softskip/data/flickr30k/csv_dir/flickr/val_client_{client}.csv")
         predicted_box_dict_list = []
         with torch.no_grad():
             val_losses = {k: [] for k in self.loss_keys}
@@ -586,7 +586,7 @@ class Learner:
         mb.write(**kwargs)
 
     def fit(self, epochs: int, lr: float,
-            params_opt_dict: Optional[Dict] = None):
+            params_opt_dict: Optional[Dict] = None, client=5):
         "Main training loop"
         # Print logger at the start of the training loop
         self.logger.info(self.cfg)
@@ -613,7 +613,7 @@ class Learner:
                 train_loss, train_acc = self.train_epoch(mb)
 
                 valid_loss, valid_acc, predictions = self.validate(
-                    self.data.valid_dl, mb,debug=True)
+                    self.data.valid_dl, mb,debug=True, client=client)
 
                 valid_acc_to_use = valid_acc[self.met_keys[0]]
                 # Depending on type

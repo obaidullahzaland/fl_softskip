@@ -98,7 +98,7 @@ def main_dist(uid: str, **kwargs):
         #t = torch.cuda.get_device_properties(0).total_memory
         #a = torch.cuda.memory_allocated(0)
         #print("Memory: ",t," : ",a)
-        learn.fit(epochs=cfg.epochs, lr=cfg.lr)
+        learn.fit(epochs=cfg.epochs, lr=cfg.lr, client=cfg['client'])
         torch.save(learn.mdl.state_dict(), f"client_{str(cfg['client'])}.pth")
     else:
         if cfg.only_val:
