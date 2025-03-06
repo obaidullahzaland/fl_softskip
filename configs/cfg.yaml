@@ -42,3 +42,4 @@ use_multi: true
 use_reduce_lr_plateau: true
 use_same_atb: true
 use_softmax: false
+client: 0

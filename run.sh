@@ -1,5 +1,5 @@
 #Training with shufflenet
-python code_adapt/main_dist.py referit_adapt_afsfpnvisnew --ds_to_use='refclef' --mdl_to_use='shuffleprune' --bs=1 --resume=False
+python code_adapt/main_dist.py referit_adapt_afsfpnvisnew --ds_to_use='flickr30k' --mdl_to_use='shuffleprune' --bs=1 --resume=False --client 5
 
 # Training with Resnet
 python code_adapt/main_dist.py referit_adapt_afsfpnvisnew --ds_to_use='refclef' --mdl_to_use='retinaprune' --bs=1 --resume=False
