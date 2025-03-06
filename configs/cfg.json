@@ -42,5 +42,6 @@
     "use_lang": true,
     "use_img": true,
     "only_shallow": false,
-    "complexity": false
+    "complexity": false,
+    "client": 0
 }

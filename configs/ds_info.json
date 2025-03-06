@@ -4,7 +4,9 @@
 	"img_dir": "./data/flickr30k/flickr30k_images/flickr30k_images",
 	"trn_csv_file": "./data/flickr30k/csv_dir/flickr/train_flat.csv",
 	"val_csv_file": "./data/flickr30k/csv_dir/flickr/val.csv",
-	"test_csv_file": "./data/flickr30k/csv_dir/flickr/test.csv"
+	"test_csv_file": "./data/flickr30k/csv_dir/flickr/test.csv",
+    "client_train_path": "./data/flickr30k/csv_dir/flickr/train_client_",
+    "client_val_path": "./data/flickr30k/csv_dir/flickr/val_client_"
     },
     "refclef": {
 	"data_dir": "./data/refclef",
