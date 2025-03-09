@@ -101,11 +101,12 @@ def main_dist(uid: str, **kwargs):
     print("Total parameters:", total_params)
         # Train or Test
     if not (cfg.only_val or cfg.only_test):
-        #t = torch.cuda.get_device_properties(0).total_memory
-        #a = torch.cuda.memory_allocated(0)
-        #print("Memory: ",t," : ",a)
-        learn.fit(epochs=cfg.epochs, lr=cfg.lr, client=cfg['client'])
-        torch.save(learn.mdl.state_dict(), f"client_{str(cfg['client'])}.pth")
+        t = torch.cuda.get_device_properties(0).total_memory
+        a = torch.cuda.memory_allocated(0)
+        print("Memory: ",t," : ",a)
+        
+        # learn.fit(epochs=cfg.epochs, lr=cfg.lr, client=cfg['client'])
+        # torch.save(learn.mdl.state_dict(), f"client_{str(cfg['client'])}.pth")
     else:
         if cfg.only_val:
             learn.testing(learn.data.valid_dl)
