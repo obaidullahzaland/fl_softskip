@@ -927,8 +927,6 @@ class ZSGNet(nn.Module):
         max_qlen = int(qlens.max().item())
         req_embs = inp1[:, :max_qlen, :].contiguous()
         # Added by Zaland
-        print(qlens.device)
-        print(req_embs.device)
         # qlens = qlens.cpu()
         # req_embs = req_embs.cpu()
         # Finished Adding 

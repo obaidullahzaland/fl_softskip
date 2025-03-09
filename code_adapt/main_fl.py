@@ -13,6 +13,9 @@ import fire
 from functools import partial
 
 from extended_config import (cfg as conf, key_maps, CN, update_from_dict)
+def count_parameters(module):
+    return sum(p.numel() for p in module.parameters() if p.requires_grad)
+
 
 def learner_init(uid: str, cfg: CN) -> Learner:
     device = torch.device('cuda')
@@ -93,7 +96,10 @@ def main_dist(uid: str, **kwargs):
     
     # Initialize learner
     learn = learner_init(uid, cfg)
-    # Train or Test
+    # Print total number of parameters in the network
+    total_params = count_parameters(learn.mdl)
+    print("Total parameters:", total_params)
+        # Train or Test
     if not (cfg.only_val or cfg.only_test):
         #t = torch.cuda.get_device_properties(0).total_memory
         #a = torch.cuda.memory_allocated(0)
