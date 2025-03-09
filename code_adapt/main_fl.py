@@ -99,6 +99,9 @@ def main_dist(uid: str, **kwargs):
     # Print total number of parameters in the network
     total_params = count_parameters(learn.mdl)
     print("Total parameters:", total_params)
+    print(f"Total Prams in LSTM: {learn.mdl.lstm}")
+    print(f"Total Prams in Backbone: {learn.mdl.backbone}")
+    print(f"Total Prams in LSTM: {learn.mdl.lstm}")
         # Train or Test
     if not (cfg.only_val or cfg.only_test):
         t = torch.cuda.get_device_properties(0).total_memory
