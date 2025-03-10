@@ -158,6 +158,6 @@ def train(model, dataloader, num_epochs=10, lr=0.001):
 
   
 
-model = CompleteModel(gamma=2)
+model = CompleteModel(gamma=0.1)
 train(model, train_loader, num_epochs=10, lr=0.001)
 
