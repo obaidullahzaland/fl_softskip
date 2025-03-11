@@ -149,14 +149,14 @@ def train(model, dataloader, num_epochs=10, lr=0.001):
             loss.backward()
             optimizer.step()
 
-            # Print which body was selected and where the gradients flowed.
-            print(f"Iteration {i}: Selected body: {selected_body}, Gradient passed through: {selected_body}")
+            # Print main and gradient flowing body 
+            # print(f"Iteration {i}: Selected body: {selected_body}, Gradient passed through: {selected_body}")
             
             if loss.item() < prev_loss:
                 flag_adjustment = flag_adjustment - 0.01
             else:
                 flag_adjustment = flag_adjustment + 0.01
-            # Clamp the flag_adjustment to a reasonable range to keep flag (after sigmoid) in (0,1)
+            # flag adjustment
             flag_adjustment = torch.clamp(flag_adjustment, -5.0, 5.0)
             prev_loss = loss.item()
 
