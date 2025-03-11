@@ -9,6 +9,9 @@ transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5
 train_dataset = datasets.CIFAR10(root='../data', train=True, download=True, transform=transform)
 train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=32, shuffle=True)
 
+    test_dataset = datasets.CIFAR10(root='../data', train=False, download=True, transform=transform)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=32, shuffle=False)
+
 class Head(nn.Module):
     def __init__(self):
         super(Head, self).__init__()
@@ -158,13 +161,39 @@ def train(model, dataloader, num_epochs=10, lr=0.001):
             prev_loss = loss.item()
 
     return model 
-
+def test(model):
+    # Define transform (same as for training)
+    
+    model.eval()  # set model to evaluation mode
+    correct = 0
+    total = 0
+    # Use a constant flag_adjustment (e.g. 0.0) during testing.
+    flag_adjustment = torch.tensor(0.0)
+    
+    with torch.no_grad():
+        for inputs, labels in test_loader:
+            # Forward pass through the model
+            logits, flag, selected_body, penalty = model(inputs, flag_adjustment)
+            _, predicted = torch.max(logits, dim=1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    
+    accuracy = 100.0 * correct / total
+    print(f"Test Accuracy: {accuracy:.2f}%")
+    return accuracy
 
 
 model = CompleteModel(gamma=0.1)
 bmodel = BiggerModel(gamma=0.1)
 smodel = SmallerModel(gamma=0.1)
 model = train(model, train_loader, num_epochs=25, lr=0.001)
+print("Main Network accuracy")
+acc = test(model)
 bmodel = train(bmodel, train_loader, num_epochs=25, lr=0.001)
+
+print("Main Network accuracy")
+acc = test(bmodel)
 smodel = train(bmodel, train_loader, num_epochs=25, lr=0.001)
 
+print("Main Network accuracy")
+acc = test(smodel)
